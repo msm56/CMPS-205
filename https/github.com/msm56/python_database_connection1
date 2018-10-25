@@ -1,0 +1,108 @@
+import pyodbc
+
+server = 'alexasql.database.windows.net'
+
+database = 'AdventureWorks2016'
+
+username = 'cmps253'
+
+password = 'Cmps205!'
+
+driver= '{ODBC Driver 13 for SQL Server}'
+
+cnxn = pyodbc.connect('DRIVER='+driver+';SERVER='+server+';PORT=1433;DATABASE='+database+';UID='+username+';PWD='+ password)
+
+cursor = cnxn.cursor()
+
+cursor.execute("SELECT top 10 * from Person.Person")
+
+row = cursor.fetchone()
+
+ 
+
+s = open('Table.html','w+')
+
+s.write('<!--Marwa Makarem - ID: 201807350 - IAn: 42-->\n')
+
+s.write('<!DOCTYPE html>\n')
+
+s.write('<html>\n')
+
+s.write('<head>\n')
+
+ 
+
+s.write('</head>\n')
+
+s.write('<style>\n')
+
+s.write('table {\n')
+
+s.write('   font-family: arial, sans-serif;\n')
+
+s.write('   border-collapse: collapse;\n')
+
+s.write('}\n')
+
+ 
+
+s.write('td, th {\n')
+
+s.write('   border: 1px solid #dddddd;\n')
+
+s.write('   text-align: left;\n')
+
+s.write('   padding: 8px;\n')
+
+s.write('}\n')
+
+ 
+
+s.write('tr:nth-child(even) {\n')
+
+s.write('   background-color: #dddddd;\n')
+
+s.write('}\n')
+
+s.write('</style>\n')
+
+ 
+
+s.write('<body>\n')
+
+ 
+
+s.write('<table>\n')
+
+s.write('   <tr>\n')
+
+s.write('       <th>First Name</th>\n')
+
+s.write('       <th>Last Name</th>\n')
+
+s.write('   </tr>\n')
+
+ 
+
+while row:
+
+   s.write ("   <tr>\n <td>" + row[4] + "</td>\n <td>" + row[6] + "</tr>\n")
+
+   row = cursor.fetchone()
+
+   
+
+s.write('<table>')
+
+ 
+
+s.write('\n')
+
+s.write('</body>\n')
+
+s.write('</html>\n')
+
+
+
+
+s.close()
